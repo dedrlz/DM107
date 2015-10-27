@@ -1,0 +1,21 @@
+{
+  "name": "todo-nodejs-app",
+  "version": "1.0.0",
+  "description": "TODO List app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "NodeJS",
+    "REST",
+    "API"
+  ],
+  "author": "Luiz Felipe Pereira",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "mysql": "^2.9.0"",
+  }
+}
