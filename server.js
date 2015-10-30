@@ -52,9 +52,12 @@ function handler(req, res) {
  */
 var pollingLoop = function() {
 
-  // Doing the database query
+ /* // Doing the database query
   var query = connection.query('SELECT * FROM users'),
     users = []; // this array will contain the result of our db query
+    
+  var query2 = connection.query('SELECT * FROM entregas'),
+    entregas = []; // this array will contain the result of our db query
 
   // setting the query listeners
   query
@@ -67,14 +70,16 @@ var pollingLoop = function() {
       // it fills our array looping on each user row inside the db
       users.push(user);
     })
+  
+  
     .on('end', function() {
       // loop on itself only if there are sockets still connected
       if (connectionsArray.length) {
 
-        pollingTimer = setTimeout(pollingLoop, POLLING_INTERVAL);
+        //pollingTimer = setTimeout(pollingLoop, POLLING_INTERVAL);
 
         updateSockets({
-          users: users
+          users: users      
         });
       } else {
 
@@ -82,6 +87,74 @@ var pollingLoop = function() {
 
       }
     });
+    
+    
+    
+    
+      // setting the query listeners
+  query2
+    .on('error', function(err) {
+      // Handle error, and 'end' event will be emitted after this as well
+      console.log(err);
+      updateSockets(err);
+    })
+    .on('result', function(entrega) {
+      // it fills our array looping on each user row inside the db
+      entregas.push(entrega);
+    })
+    .on('end', function() {
+      // loop on itself only if there are sockets still connected
+      if (connectionsArray.length) {
+
+        pollingTimer = setTimeout(pollingLoop, POLLING_INTERVAL);
+
+        updateSockets({
+          entregas: entregas      
+        });
+      } else {
+
+        console.log('The server timer was stopped because there are no more socket connections on the app')
+
+      }
+    }); */
+    
+    var query = connection.query('SELECT user_name, user_description, user_img, user_id, nomeRecebedor, cpfRecebedor, localizacao FROM users T1 INNER JOIN entregas T2 ON T1.user_id = T2.idCliente'),
+    users = []; // this array will contain the result of our db query
+    
+    
+    
+      // setting the query listeners
+  query
+    .on('error', function(err) {
+      // Handle error, and 'end' event will be emitted after this as well
+      console.log(err);
+      updateSockets(err);
+    })
+    .on('result', function(user) {
+      // it fills our array looping on each user row inside the db
+      users.push(user);
+    })
+  
+  
+    .on('end', function() {
+      // loop on itself only if there are sockets still connected
+      if (connectionsArray.length) {
+
+        pollingTimer = setTimeout(pollingLoop, POLLING_INTERVAL);
+
+        updateSockets({
+          users: users      
+        });
+      } else {
+
+        console.log('The server timer was stopped because there are no more socket connections on the app')
+
+      }
+    });
+    
+    
+    
+    
 };
 
 
