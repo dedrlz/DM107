@@ -24,30 +24,48 @@
                 maiorId = user.user_id;    
             });
             
-
+    
             for (i=0; i<=maiorId; i++){
              aux = 1;
              num = 1;    
             $.each(data.users,function(index,user){        
                 if (user.user_id == i && aux == 1){
-                    usersList += "<dt>" + "<figure> <img class='img-polaroid' width='50px' src='" + user.user_img + "' /></figure>" + "</dt>" +
-                    "<dt>" + user.user_name + " - " + user.user_description + "</dt>\n" +
-                    "<dd>" + "Entrega " + num + ":</dd>" +
-                    "<dd>" + "Nome recebedor: " + user.nomeRecebedor + "</dd>" +          
-                    "<dd>" + "CPF recebedor: " + user.cpfRecebedor + "</dd>" +
-                    "<dd>" + "Local entrega: " + user.localizacao + "</dd>" +
-                    "<dt></dt>";
+                    usersList += "<table cellspacing='0' border='1'>" +
+                        "<thead> <tr>" +      
+                        "<th> <figure> <img class='img-polaroid' width='50px' src='" + user.user_img + "' /></figure>" + "</th>" +
+                        "<th>" + user.user_name + "</th>" + 
+                        "<th>" + user.user_description + "</th>" +
+                        "</tr> </thead>" +
+                        "<tbody>" +
+                        "<tr> <td>Entrega " + num + ":</td>" +
+                        "</tr>" +
+
+                        "<tr><td> Nome recebedor </td>" +          
+                        "<td> CPF recebedor </td>" +
+                        "<td> Local entrega </td></tr>" +
+                    
+                        "<tr><td>" + user.nomeRecebedor + "</td>" +          
+                        "<td>" + user.cpfRecebedor + "</td>" +
+                        "<td>"  + user.localizacao + "</td></tr>" 
+                        "</tbody>" + "</table>";
+                        
+                        
                     
                     num += 1;    
                     aux = 0;  
                 }
                 else{
                     if (user.user_id == i){ 
-                        usersList += "<dd>" + "Entrega " + num + ":</dd>" +
-                        "<dd>" + "Nome recebedor: " + user.nomeRecebedor + "</dd>" +          
-                        "<dd>" + "CPF recebedor: " + user.cpfRecebedor + "</dd>" +
-                        "<dd>" + "Local entrega: " + user.localizacao + "</dd>" +
-                        "<dt></dt>";
+                        usersList += "<tr> <td>Entrega " + num + ":</td>" +
+                        "</tr>" +
+
+                        "<tr><td> Nome recebedor </td>" +          
+                        "<td> CPF recebedor </td>" +
+                        "<td> Local entrega </td></tr>" +
+                    
+                        "<tr><td>" + user.nomeRecebedor + "</td>" +          
+                        "<td>" + user.cpfRecebedor + "</td>" +
+                        "<td>"  + user.localizacao + "</td></tr>";
                         
                         num += 1;    
                     }    
@@ -57,11 +75,20 @@
                 
             }
               
-        usersList += "</dl>";
         $('#container').html(usersList);
    
         $('time').html('Last Update:' + data.time);
       });
     </script>
     </body>
+    
+    
+    /*
+    COMMIT
+    
+    git add .
+    git commit -a -m "commit" (do not need commit message either)
+    git push
+    
+    */
 </html>
